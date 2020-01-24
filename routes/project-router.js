@@ -27,5 +27,28 @@ router.post('/', (req, res) => {
     });
 })
 
+//GET & POST to Resources
+router.get('/res', (req, res) => {
+  Proj.getResources()
+    .then(list => {
+      res.status(200).json(list)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: "error with the database" });
+    });
+});
+
+router.post('/res', (req, res) => {
+  Proj.addResource(req.body)
+    .then(newRes => {
+      res.status(201).json(newRes)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: "error with the database" });
+    });
+})
+
 
 module.exports = router;
