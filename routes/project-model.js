@@ -1,5 +1,7 @@
 const db = require('../data/dbConfig');
 
+const knex = require('knex');
+
 module.exports = {
   getProjects,
   addProject,
@@ -18,12 +20,12 @@ function addProject(newProj) {
 }
 
 function getResources() {
-  return db('resources');
-    // .join('projects', function() {
-    //   this
-    //     .on('resources.project_id', '=', 'projects.id')
-    // })
-    // .select('resources.id', 'resources.name', 'resources.description', 'projects.name');
+  return db('resources')
+    .join('projects', function() {
+      this
+        .on('resources.project_id', '=', 'projects.id')
+    })
+    .select('resources.id', 'resources.name', 'resources.description', 'projects.name');
 }
 
 function addResource(newRes) {
@@ -31,7 +33,14 @@ function addResource(newRes) {
 }
 
 function getTasks() {
-  return db('tasks');
+  return db('tasks')
+    .join('projects', function() {
+      this
+        .on('tasks.project_id', '=', 'projects.id')
+    })
+    .select('tasks.id', 'tasks.description', 'tasks.notes', (knex.raw`(case when tasks.completed = 1 then 'True' else 'False' end) as completed`), 'projects.name as Project_Name', 'projects.description as Project_Description')
+
+    .orderBy('projects.name')
 }
 
 function addTask(newTask) {
