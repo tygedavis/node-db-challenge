@@ -7,6 +7,7 @@ exports.up = function(knex) {
         .notNullable()
       tbl.text('description')
       tbl.boolean('completed')
+        .notNullable()
         .defaultTo(false);
     })
 };

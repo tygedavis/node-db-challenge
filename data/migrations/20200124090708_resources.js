@@ -12,7 +12,7 @@ exports.up = function(knex) {
         .references('id')
         .inTable('projects')
         .onUpdate('CASCADE')
-        .onDelete('RESTRICT');
+        .onDelete('CASCADE');
     })
 };
 
