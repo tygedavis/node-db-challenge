@@ -48,7 +48,29 @@ router.post('/res', (req, res) => {
       console.log(err)
       res.status(500).json({ error: "error with the database" });
     });
-})
+});
 
+//GET & POST for Tasks
+router.get('/tasks', (req, res) => {
+  Proj.getTasks()
+    .then(list => {
+      res.status(200).json(list);
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: "error with the database" });
+    });
+});
+
+router.post('/tasks', (req, res) => {
+  Proj.addTask(req.body)
+    .then(newTask => {
+      res.status(201).json(newTask);
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: "error with the database" });
+    });
+});
 
 module.exports = router;
