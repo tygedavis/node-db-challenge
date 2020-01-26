@@ -21,11 +21,6 @@ function addProject(newProj) {
 
 function getResources() {
   return db('resources')
-    .join('projects', function() {
-      this
-        .on('resources.project_id', '=', 'projects.id')
-    })
-    .select('resources.id', 'resources.name', 'resources.description', 'projects.name');
 }
 
 function addResource(newRes) {
