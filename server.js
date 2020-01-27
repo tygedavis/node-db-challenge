@@ -5,6 +5,6 @@ const server = express();
 server.use(express.json());
 
 server.use('/', projRouter);
-server.use('.docs', express.static('./docs'))
+server.use('/docs', express.static('./docs'))
 
 module.exports = server;
